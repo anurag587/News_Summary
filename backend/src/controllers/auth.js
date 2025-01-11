@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs";
 import User from "../models/user.js";
 
 export const signup = async (req, res, next) => {
-  const {name, emailId, password } = req.body;
+  const { name, emailId, password } = req.body;
   if (
     !name ||
     !emailId ||
@@ -41,20 +41,34 @@ export const signin = async (req, res, next) => {
     }
 
     // Validate password
-    const isPasswordValid = await bcryptjs.compare(password, user.password);
+    const isPasswordValid =  bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid Credentials" });
     }
 
     // Create JWT Token
-    const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET || "secret_key", {
-      expiresIn: "1d", // Token expiry time
-    });
+    const token = jwt.sign(
+      { _id: user.id },
+      process.env.JWT_SECRET || "secret_key",
+      {
+        expiresIn: "1d", // Token expiry time
+      }
+    );
 
     // Add token to cookie and send response
     res.cookie("token", token, { httpOnly: true, secure: false }); // Use 'secure: true' in production
-    res.status(200).json({ message: "Login Successfully!!!", token });
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ error: "Something went wrong: " + err.message });
+  }
+};
+export const signout = (req, res, next) => {
+  try {
+    res
+      .clearCookie("token")
+      .status(200)
+      .json({ message: "Signout successfully" });
+  } catch (error) {
+    next(error);
   }
 };

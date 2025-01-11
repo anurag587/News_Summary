@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userSignedIn } from "../redux/user/userSlice";
 
 const SignIn = () => {
   const [emailId, setEmailId] = useState("");
@@ -7,6 +9,7 @@ const SignIn = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,6 +33,7 @@ const SignIn = () => {
       console.log(data);
 
       if (response.ok) {
+        dispatch(userSignedIn(data));
         navigate("/");
       } else {
         // Handle error response
