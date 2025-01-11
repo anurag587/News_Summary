@@ -37,14 +37,19 @@ const ExtendedNews = ({ article }) => {
         <div className="prose">
           <p>{article.summary}</p>
         </div>
-        <a
-          href={article.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 text-sm mt-3 block hover:underline"
-        >
-          Read full article
-        </a>
+        <div className="flex">
+          <a
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 text-sm mt-3 block hover:underline"
+          >
+            Read full article
+          </a>
+          <button className="ml-auto text-sm mt-3 border border-gray-300 p-2 rounded hover:bg-gray-200">
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );
