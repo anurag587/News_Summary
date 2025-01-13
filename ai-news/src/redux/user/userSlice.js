@@ -2,7 +2,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null, // Initially, no user is logged in
+  user: null,
+  savedArticles: [], 
 };
 
 const userSlice = createSlice({
@@ -19,9 +20,17 @@ const userSlice = createSlice({
     logout: (state) => {
       state.user = null; // Reset user data when logged out
     },
+    saveArticleToProfile(state, action) {
+      // Add the article to the savedArticles array
+      state.savedArticles.push(action.payload);
+    },
+    setSavedArticles(state, action) {
+      // Set savedArticles with the fetched articles
+      state.savedArticles = action.payload;
+    },
   },
 });
 
-export const { login, userSignedIn, logout } = userSlice.actions;
+export const { login, userSignedIn, logout,saveArticleToProfile, setSavedArticles } = userSlice.actions;
 
 export default userSlice.reducer;

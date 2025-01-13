@@ -13,10 +13,10 @@ const Home = () => {
     const fetchNews = async () => {
       try {
         const response = await axios.get(
-          "https://www.toptal.com/developers/feed2json/convert?url=https%3A%2F%2Ftimesofindia.indiatimes.com%2Frssfeedstopstories.cms"
+          "https://newsapi.org/v2/everything?q=tesla&from=2024-12-13&sortBy=publishedAt&apiKey=ea7d198af6a84a1eb09886cea3bd4b9f"
         );
-        console.log(response.data.items);
-        setNews(response.data.items);
+        console.log(response.data.articles);
+        setNews(response.data.articles);
       } catch (error) {
         console.error("Error fetching news:", error);
       }
