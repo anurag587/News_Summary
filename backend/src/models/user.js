@@ -19,6 +19,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       minLength: 6,
     },
+    savedArticles: [
+      {
+        title: String,
+        content: String,
+        url: String,
+      },
+    ],
   },
   { timestamps: true }
 );
